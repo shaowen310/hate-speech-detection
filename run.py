@@ -9,14 +9,7 @@ def argparser():
 
     ## Required parameters
     ap.add_argument(
-        "--bert_config_file",
-        required=True,
-        help="The config json file corresponding to the pre-trained BERT model. "
-        "This specifies the model architecture.",
-    )
-
-    ap.add_argument(
-        "--input_file",
+        "--data",
         required=True,
         help="Input TF example files (can be a glob or comma separated).",
     )
