@@ -1,0 +1,1 @@
+Download the dataset via this [link](https://www.kaggle.com/datasets/arkhoshghalb/twitter-sentiment-analysis-hatred-speech/code?datasetId=100982).
