@@ -5,11 +5,10 @@ import matplotlib.pyplot as plt
 # %%
 from dataprovider.twitter_hatred_speech import TwitterHatredSpeech
 
-twitter_dataset = TwitterHatredSpeech(data_dir="data/twitter_hatred_speech")
+twitter_dataset = TwitterHatredSpeech(csv_file="data/twitter_hatred_speech/train.csv")
 
 # %%
-df_train = twitter_dataset.train_split()
-
+df_train = twitter_dataset.df
 print(f"Columns: {df_train.columns}")
 
 # %%

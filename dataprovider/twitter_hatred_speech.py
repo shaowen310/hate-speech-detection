@@ -1,16 +1,25 @@
 import os
 
 import pandas as pd
+import torch
+from torch.utils.data import Dataset
 
 
-class TwitterHatredSpeech:
-    def __init__(self, data_dir):
-        self.data_dir = data_dir
+class TwitterHatredSpeech(Dataset):
+    def __init__(self, csv_file, transform=None):
+        self.df = pd.read_csv(csv_file, header=0)
+        self.transform = transform
 
-    def train_split(self):
-        df_train = pd.read_csv(os.path.join(self.data_dir, "train.csv"), header=0)
-        return df_train
+    def __len__(self):
+        return len(self.df)
 
-    def test_split(self):
-        df_test = pd.read_csv(os.path.join(self.data_dir, "test.csv"), header=0)
-        return df_test
+    def __getitem__(self, idx):
+        if torch.is_tensor(idx):
+            idx = idx.tolist()
+
+        sample = self.df.iloc[idx].to_dict("list")
+
+        if self.transform:
+            sample = self.transform(sample)
+
+        return sample
