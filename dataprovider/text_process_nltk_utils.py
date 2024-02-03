@@ -1,14 +1,24 @@
+import re
+import string
 import nltk
 from nltk.tokenize import word_tokenize
 from nltk.probability import FreqDist
 
 nltk.download("stopwords")
-nltk.download('punkt')
+nltk.download("punkt")
 
 
 def remove_stopwords(text, language="english"):
     stopwords = nltk.corpus.stopwords.words(language)
-    return " ".join([word for word in text.split() if word not in stopwords])
+    return " ".join([w for w in text.split() if w not in stopwords])
+
+
+def remove_punctuations_nltk(text, language="english"):
+    """Don't remove negations."""
+    l = nltk.word_tokenize(text, language=language)
+    return " ".join(
+        [w for w in l if not re.fullmatch("[" + string.punctuation + "]+", w)]
+    )
 
 
 def word_tokenize_word_freq(text):
@@ -31,9 +41,3 @@ def doc_word_freq(texts, vocab_size=None):
         freq_dist = FreqDist(tokens)
         freq_dist_doc.update(freq_dist)
     return freq_dist_doc.most_common(vocab_size)
-
-
-def word_tokenize_vocab(text, vocab, unk_token="<unk>"):
-    tokens = word_tokenize(text)
-    limited_tokens = [word if word in vocab else unk_token for word in tokens]
-    return limited_tokens

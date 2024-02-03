@@ -13,6 +13,7 @@ class LSTMForSequenceClassification(nn.Module):
         recurrent_dropout=0.1,
         dropout=0.1,
     ):
+        super().__init__()
         self.num_labels = num_labels
         self.dropout_rate = dropout
 

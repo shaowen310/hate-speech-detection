@@ -1,3 +1,6 @@
-from .twitter_hatred_speech import TwitterHatredSpeech
+from .twitter_hatred_speech import (
+    TwitterHatredSpeech,
+    TwitterHatredSpeechForWordEmbedding,
+)
 
-__all__ = ["TwitterHatredSpeech"]
+__all__ = ["TwitterHatredSpeech", "TwitterHatredSpeechForWordEmbedding"]

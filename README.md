@@ -8,6 +8,7 @@ Run the following code.
 pip install torch --index-url https://download.pytorch.org/whl/cu118
 pip install numpy
 pip install pandas
+pip install lightning
 ```
 
 ## Zero-shot
