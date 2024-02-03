@@ -1,3 +1,3 @@
-from .lstm import LSTMForSequenceClassification as LSTM
+from .lstm import LSTMForSequenceClassification
 
-__all__ = ["LSTM"]
+__all__ = ["LSTMForSequenceClassification"]
