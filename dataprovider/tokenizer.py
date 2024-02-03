@@ -61,12 +61,6 @@ class NLTKWordTokenizer:
         out_string = " ".join(tokens).strip()
         return out_string
 
-    def build_inputs_with_special_tokens(self, token_ids_0: List[int]) -> List[int]:
-        """
-        Build model inputs from a sequence.
-        """
-        return token_ids_0
-
     def save_vocabulary(
         self, save_directory: str, filename_prefix: Optional[str] = None
     ) -> Tuple[str]:
