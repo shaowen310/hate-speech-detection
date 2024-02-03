@@ -21,6 +21,16 @@ def remove_numbers(text):
     return re.sub(r"\d+", "", text)
 
 
-def remove_twitter_word_user(text):
-    """The word "user" is just a placeholder for the actual user names and it occurs many times without providing any useful information."""
-    return re.sub(r"(?<=\s)user(?=\s)", "", text)
+def remove_words_fn(words):
+    def remove_fn(text):
+        return " ".join([w for w in text.split() if w not in words])
+
+    return remove_fn
+
+
+def remove_non_ascii(text):
+    return text.encode("ascii", "ignore").decode()
+
+
+def remove_extra_space(text):
+    return re.sub(r"\s+", " ", text.strip())

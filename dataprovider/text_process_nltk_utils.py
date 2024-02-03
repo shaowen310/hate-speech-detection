@@ -3,11 +3,12 @@ from nltk.tokenize import word_tokenize
 from nltk.probability import FreqDist
 
 nltk.download("stopwords")
+nltk.download('punkt')
 
 
 def remove_stopwords(text, language="english"):
     stopwords = nltk.corpus.stopwords.words(language)
-    return [word for word in text if word not in stopwords]
+    return " ".join([word for word in text.split() if word not in stopwords])
 
 
 def word_tokenize_word_freq(text):
