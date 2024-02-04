@@ -1,20 +1,20 @@
-# Hate Speech Detection
+# Twitter Hate Speech Detection
 
 Twitter hate speech detection.
 
-I build data process utilities and use PyTorch Lightning for supervised training. I aim for the codes to be easily transferable to other projects.
-
-Experiment hate speech detection dataset on [link](https://www.kaggle.com/datasets/arkhoshghalb/twitter-sentiment-analysis-hatred-speech/code?datasetId=100982).
+I build data process utilities and PyTorch training skeleton for supervised training. I aim for the codes to be easily transferable to other projects.
 
 ## Challenges
 
 The challenges include imbalanced labels, informal language, contextual mentions, label noises, etc. Hate speech detection is also subjective, we may find some confusing labels.
 
-### Imbalanced labels
+### 1. Imbalanced labels
 
 ![Label distribution](https://github.com/shaowen310/hate-speech-detection/blob/main/fig/label_distribution.png?raw=true)
 
-### Informal language
+To make the things worse, the number of tweets in the training data is small that it is difficult for deep learning model to learn them from scratch. We may need to try methods optimized for few-shot learning.
+
+### 2. Informal language
 
 There are many spelling errors. Users may use repeated characters to indicate their emotions.
 
@@ -26,7 +26,7 @@ E.g.,
 
 The solutions may let a spelling checker to auto-correct misspelled words. But we should also keep the original spelling in order to identify user emotions.
 
-### Contextual mentions
+### 3. Contextual mentions
 
 Users may use abbrevations that are well known for certain circles.
 
@@ -38,7 +38,7 @@ E.g.,
 
 "hp" here refer to the Harry Potter. We need external knowledge to understand it. So LLM may solve the issue.
 
-### Confusing labels
+### 4. Confusing labels
 
 E.g.,
 
