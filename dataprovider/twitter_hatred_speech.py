@@ -22,7 +22,8 @@ class TwitterHatredSpeech(Dataset):
         self._process()
 
     def _process(self):
-        self.tweets = self.transform(self.tweets)
+        if self.transform is not None:
+            self.tweets = self.transform(self.tweets)
 
     def __len__(self):
         return len(self.df)
@@ -48,8 +49,8 @@ class TwitterHatredSpeech(Dataset):
 
 
 class TwitterHatredSpeechForWordEmbedding(Dataset):
-    def __init__(self, csv_file, transform=None, vocab=None, vocab_size=None):
-        self.data = TwitterHatredSpeech(csv_file, transform)
+    def __init__(self, data, vocab_size=None, vocab=None):
+        self.data = data
         if vocab is None:
             word_freq = doc_word_freq(self.data[:]["tweet"], vocab_size=vocab_size)
             vocab = [x[0] for x in word_freq]

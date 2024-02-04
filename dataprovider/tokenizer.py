@@ -87,6 +87,8 @@ class NLTKWordTokenizer:
                 index += 1
         return (vocab_file,)
 
+    # def fit_on_texts(self, texts):
+
     def tokenize(self, text):
         tokens = word_tokenize(text)
         tokens = [

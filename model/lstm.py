@@ -12,6 +12,7 @@ class LSTMForSequenceClassification(nn.Module):
         embedding_weight=None,
         recurrent_dropout=0.1,
         dropout=0.1,
+        num_lstm_layers=2,
     ):
         super().__init__()
         self.num_labels = num_labels
@@ -23,36 +24,30 @@ class LSTMForSequenceClassification(nn.Module):
         else:
             self.embedding_dim = embedding_dim
             self.embedding = nn.Embedding(vocab_size, self.embedding_dim)
-        self.lstm = nn.LSTM(self.embedding_dim, hidden_size, dropout=recurrent_dropout)
-        self.classifier = nn.Linear(hidden_size, num_labels)
+        self.lstm = nn.LSTM(
+            self.embedding_dim,
+            hidden_size,
+            num_layers=num_lstm_layers,
+            dropout=recurrent_dropout,
+            batch_first=True,
+        )
+        self.fc = nn.Linear(hidden_size, num_labels)
 
-    def forward(self, x, labels=None):
-        output = self.embedding(x)
-        output, _ = self.lstm(output)
-        output = F.dropout(output, p=self.dropout_rate)
-        logits = self.classifier(output)
+    def forward(self, x, label=None):
+        emb = self.embedding(x)
+        lstm_out, _ = self.lstm(emb)
+        lstm_out = lstm_out[:, -1, :]
+        lstm_out = F.dropout(lstm_out, p=self.dropout_rate)
+        logits = self.fc(lstm_out)
 
-        if labels is not None:
+        if label is not None:
             if self.num_labels == 1:
                 #  We are doing regression
                 loss_fct = nn.MSELoss()
-                loss = loss_fct(logits.view(-1), labels.view(-1))
+                loss = loss_fct(logits.view(-1), label.view(-1))
             else:
                 loss_fct = nn.CrossEntropyLoss()
-                loss = loss_fct(logits.view(-1, self.num_labels), labels.view(-1))
-            outputs = (loss,) + logits
-
-        return outputs  # (loss), logits
-
-
-# model = Sequential()
-#     model.add(Embedding(len(word_index) + 1,
-#                      300,
-#                      weights=[embedding_matrix],
-#                      input_length=max_len,
-#                      trainable=False))
-
-#     model.add(LSTM(100))
-#     # dropout=0.3, recurrent_dropout=0.3
-#     model.add(Dense(1, activation='sigmoid'))
-#     model.compile(loss='binary_crossentropy', optimizer='adam',metrics=['accuracy'])
+                loss = loss_fct(logits.view(-1, self.num_labels), label.view(-1))
+            return loss, logits
+        else:
+            return logits

@@ -21,7 +21,7 @@ plt.subplot(1, 2, 1)
 sbn.countplot(x="label", data=df_train)
 plt.xlabel("Label")
 plt.ylabel("Count")
-plt.title("Distribution of Labels")
+plt.title("Label Distribution")
 
 ## Found twitter_hatred_speech training data to be extremely imbalanced
 
