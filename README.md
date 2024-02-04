@@ -12,7 +12,7 @@ The challenges include imbalanced labels, informal language, contextual mentions
 
 ### Imbalanced labels
 
-![Label distribution](https://github.com/shaowen310/hate-speech-detection/blob/master/fig/label_distribution.png?raw=true)
+![Label distribution](https://github.com/shaowen310/hate-speech-detection/blob/main/fig/label_distribution.png?raw=true)
 
 ### Informal language
 
@@ -76,8 +76,14 @@ May try prompt engineering first, then instruction-based fine-tuning.
 
 The reference project's source code is under MIT license.
 
-### 2. Utilizing the info from hash tags. (Mentions are not usable because they are annonymised to `@user`.)
+### 2. Utilizing the info from hash tags. 
+
+
 
 This is quite important as many hatred tweets use certain hash tags such as `#white`.
 
-### 3. Emotion and characteristics (needs not annonymised mentions info) detection. The way people spell the words may indicate their emotions.
+I also want to explore the mentions. However, mentions do not contain much information because they are annonymised to `@user`.
+
+### 3. Emotion and characteristics (needs not annonymised mentions info) detection. 
+
+The way people spell the words may indicate their emotions.
